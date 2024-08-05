@@ -50,3 +50,11 @@ class GreedyAgent(Agent):
 
 def scoreEvaluation(state):
     return state.getScore()
+from pacmanAgents import MonteCarloPacmanAgent
+
+if __name__ == '__main__':
+   from pacman import readCommand
+   import pacman
+
+   args = readCommand(['-p', 'MonteCarloPacmanAgent', '-a', 'optimal_distance=5'])  # Параметри для вашого агента
+   pacman.runGames(**args)
