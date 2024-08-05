@@ -89,4 +89,12 @@ class MonteCarloPacmanAgent(Agent):
 
    def distance(self, pos1, pos2):
        return ((pos1[0] - pos2[0]) ** 2 + (pos1[1] - pos2[1]) ** 2) ** 0.5
+from pacmanAgents import MonteCarloPacmanAgent
 
+if __name__ == '__main__':
+   from pacman import readCommand
+   import pacman
+
+   args = readCommand(['-p', 'MonteCarloPacmanAgent', '-a', 'optimal_distance=5'])  # Параметри для вашого агента
+   pacman.runGames(**args)
+    
