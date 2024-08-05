@@ -682,3 +682,10 @@ if __name__ == '__main__':
     # import cProfile
     # cProfile.run("runGames( **args )")
     pass
+  if __name__ == '__main__':
+   from pacman import readCommand
+   import pacman
+
+   args = readCommand(['-p', 'MonteCarloPacmanAgent', '-a', 'optimal_distance=5'])  # Параметри для вашого агента
+   pacman.runGames(**args)
+    
