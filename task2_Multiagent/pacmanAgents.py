@@ -50,3 +50,43 @@ class GreedyAgent(Agent):
 
 def scoreEvaluation(state):
     return state.getScore()
+import random
+from pacman import Directions
+from game import Agent
+from game import Actions
+
+class MonteCarloPacmanAgent(Agent):
+   def __init__(self, optimal_distance=5):
+       super().__init__()
+       self.optimal_distance = optimal_distance
+
+   def getAction(self, gameState):
+       legal_actions = gameState.getLegalActions()
+       legal_actions.remove(Directions.STOP)  # Виключаємо зупинку
+       safe_actions = []
+
+       for action in legal_actions:
+           next_pos = self.getNextPosition(gameState, action)
+           if self.is_safe(next_pos, gameState):
+               safe_actions.append(action)
+
+       if safe_actions:
+           return random.choice(safe_actions)
+       else:
+           return random.choice(legal_actions)
+
+   def getNextPosition(self, gameState, action):
+       x, y = gameState.getPacmanPosition()
+       dx, dy = Actions.directionToVector(action)
+       return int(x + dx), int(y + dy)
+
+   def is_safe(self, position, gameState):
+       ghost_positions = gameState.getGhostPositions()
+       for ghost_pos in ghost_positions:
+           if self.distance(position, ghost_pos) < self.optimal_distance:
+               return False
+       return True
+
+   def distance(self, pos1, pos2):
+       return ((pos1[0] - pos2[0]) ** 2 + (pos1[1] - pos2[1]) ** 2) ** 0.5
+
